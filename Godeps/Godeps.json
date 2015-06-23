@@ -1,0 +1,15 @@
+{
+	"ImportPath": "github.com/jalateras/fileserver",
+	"GoVersion": "go1.4.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/russross/blackfriday",
+			"Comment": "v1.2-49-g3a90da1",
+			"Rev": "3a90da10e373e33f9d809d0324741aade90b7299"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
+			"Rev": "8e87604bec3c645a4eeaee97dfec9f25811ff20d"
+		}
+	]
+}

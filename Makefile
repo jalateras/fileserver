@@ -1,40 +1,36 @@
-GO_CMD=go
-GO_BUILD=$(GO_CMD) build
-GO_CLEAN=$(GO_CMD) clean
-GO_DEPS=$(GO_CMD) get -d -v
-GO_DEPS_UPDATE=$(GO_CMD) get -d -v -u
-GO_VET=$(GO_CMD) vet
-GO_FMT=$(GO_CMD) fmt
-GO_LINT=golint
+.PHONY: all clean echo test fmt install bench run
 
-TOP_PACKAGE_DIR := github.com/jalateras
-PACKAGE_LIST := fileserver
+EXECUTABLE = fileserver
+GDFLAGS ?= $(GDFLAGS:)
+ARGS ?= $(ARGS:)
 
-.PHONY: all build
+all: test
 
-all: build
+clean:
+	@echo "===> Cleaning"
+	@godep go clean $(GDFLAGS) -i ./...
 
-build: vet
-	@for p in $(PACKAGE_LIST); do \
-		echo "==> Build $$p ..."; \
-		$(GO_BUILD) $(TOP_PACKAGE_DIR)/$$p || exit 1; \
-	done
+build:
+	@echo "===> Building"
+	@godep go build $(GDFLAGS) -o $(EXECUTABLE) ./...
 
 fmt:
-	@for p in $(PACKAGE_LIST); do \
-		echo "==> Formatting $$p ..."; \
-		$(GO_FMT) $(TOP_PACKAGE_DIR)/$$p || exit 1; \
-	done
+	@echo "===> Formatting"
+	@godep go fmt $(GDFLAGS) ./...
 
-vet:
-	@for p in $(PACKAGE_LIST); do \
-		echo "==> Vet $$p ..."; \
-		$(GO_VET) $(TOP_PACKAGE_DIR)/$$p; \
-	done
+install:
+	@echo "===> Installing"
+	@godep go install $(GDFLAGS)
 
-lint:
-	@for p in $(PACKAGE_LIST); do \
-		echo "==> Lint $$p ..."; \
-		$(GO_LINT) src/$(TOP_PACKAGE_DIR)/$$p/main.go; \
-	done
+test:
+	@echo "===> Testing"
+	@godep go test $(GDFLAGS) ./...
+
+bench:
+	@echo "===> Benchmarking"
+	@godep go test -run=NONE -bench=. $(GDFLAGS) ./...
+
+start: build
+	@echo "===> Starting Server"
+	@./$(EXECUTABLE) $(ARGS)
 
