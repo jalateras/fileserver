@@ -1,10 +1,19 @@
-.PHONY: all clean echo test fmt install bench run
+.PHONY: all clean echo test fmt install bench run bootstrap
 
 EXECUTABLE = fileserver
 GDFLAGS ?= $(GDFLAGS:)
 ARGS ?= $(ARGS:)
 
+EXTERNAL_TOOLS=\
+	github.com/tools/godep
+
 all: test
+
+bootstrap:
+	@for tool in  $(EXTERNAL_TOOLS) ; do \
+		echo "===> Installing $$tool" ; \
+    go get $$tool; \
+	done
 
 clean:
 	@echo "===> Cleaning"
