@@ -3,7 +3,7 @@ package sanitized_anchor_name_test
 import (
 	"fmt"
 
-	"github.com/jalateras/fileserver/Godeps/_workspace/src/github.com/shurcooL/sanitized_anchor_name"
+	"github.com/shurcooL/sanitized_anchor_name"
 )
 
 func ExampleCreate() {

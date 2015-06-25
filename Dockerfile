@@ -17,6 +17,7 @@ RUN \
   make bootstrap build && \
   mkdir -p $FILESERVER_HOME && \
   cp ./fileserver $FILESERVER_HOME/   && \
+  cp -R ./public $FILESERVER_HOME/ && \
   chown -R fileserver:fileserver $FILESERVER_HOME && \
   apk del --purge wget git mercurial bzr go  && \
   rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $GOPATH

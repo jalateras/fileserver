@@ -1,4 +1,4 @@
-.PHONY: all clean echo test fmt install bench run bootstrap
+.PHONY: all clean echo test fmt install bench run bootstrap run
 
 EXECUTABLE = fileserver
 GDFLAGS ?= $(GDFLAGS:)
@@ -43,3 +43,6 @@ start: build
 	@echo "===> Starting Server"
 	@./$(EXECUTABLE) $(ARGS)
 
+run:
+	@echo "===> Running Server"
+	@godep go run main.go
